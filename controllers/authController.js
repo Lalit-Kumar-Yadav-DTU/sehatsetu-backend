@@ -17,7 +17,8 @@ export const registerUser = async (req, res) => {
       user.verificationExpire = Date.now() + 24 * 60 * 60 * 1000; 
       await user.save();
 
-      const backendUrl = process.env.BACKEND_URL || 'https://sehatsetu-api.onrender.com' || 'http://localhost:5000';
+      // const backendUrl = process.env.BACKEND_URL || 'https://sehatsetu-api.onrender.com' || 'http://localhost:5000';
+      const backendUrl = 'https://sehatsetu-backend-8um0.onrender.com' || 'http://localhost:5000';
       const verifyUrl = `${backendUrl}/api/auth/verify/${verificationToken}`;
       const message = `
         <div style="font-family: Arial; padding: 20px;">
