@@ -18,8 +18,13 @@ export const registerUser = async (req, res) => {
       await user.save();
 
       // const backendUrl = process.env.BACKEND_URL || 'https://sehatsetu-api.onrender.com' || 'http://localhost:5000';
-      const backendUrl = 'https://sehatsetu-backend-8um0.onrender.com' || 'http://localhost:5000';
-      const verifyUrl = `${backendUrl}/api/auth/verify/${verificationToken}`;
+      // const backendUrl = 'https://sehatsetu-backend-8um0.onrender.com' || 'http://localhost:5000';
+      
+      // const verifyUrl = `${backendUrl}/api/auth/verify/${verificationToken}`;
+
+
+      
+      const verifyUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
       const message = `
         <div style="font-family: Arial; padding: 20px;">
           <h1>Welcome to SehatSetu! 🌿</h1>
@@ -50,6 +55,7 @@ export const registerUser = async (req, res) => {
   } // 👈 THIS WAS MISSING
 };
 
+
 export const verifyEmail = async (req, res) => {
   try {
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
@@ -62,11 +68,31 @@ export const verifyEmail = async (req, res) => {
     user.verificationExpire = undefined;
     await user.save();
 
-    res.redirect(`${process.env.FRONTEND_URL}/login?verified=true`);
+    // 👇 CHANGE THIS: Return success instead of redirecting the server
+    return res.status(200).json({ success: true, message: 'Account verified successfully!' });
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
+// export const verifyEmail = async (req, res) => {
+//   try {
+//     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+//     const user = await User.findOne({ verificationToken: hashedToken, verificationExpire: { $gt: Date.now() } });
+
+//     if (!user) return res.status(400).json({ message: 'Invalid/Expired link' });
+
+//     user.isVerified = true;
+//     user.verificationToken = undefined;
+//     user.verificationExpire = undefined;
+//     await user.save();
+
+//     res.redirect(`${process.env.FRONTEND_URL}/login?verified=true`);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// };
 
 export const loginUser = async (req, res) => {
   try {
