@@ -1,8 +1,11 @@
-import mongoose from 'mongoose'; // 👈 Added this!
+import mongoose from 'mongoose'; 
 import Program from '../models/Program.js';
+import Section from '../models/section.js';      
+import SubSection from '../models/subSection.js';
 
-// @desc    Fetch all programs
-// @route   GET /api/programs
+
+// @description    Fetch all programs   
+// @route   GET /api/programs  
 export const getAllPrograms = async (req, res) => {
   try {
     const programs = await Program.find({});
@@ -25,7 +28,6 @@ export const getAllPrograms = async (req, res) => {
 // @route   GET /api/programs/:id
 export const getProgramById = async (req, res) => {
   try {
-    // 🛡️ THE SHIELD: Check if it's a valid MongoDB ID first!
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(404).json({ message: "Invalid Program ID format" });
     }
@@ -34,7 +36,6 @@ export const getProgramById = async (req, res) => {
     const program = await Program.findById(req.params.id).populate('courseContent');
     
     if (program) {
-      // ✅ THE FIX: Returning the raw program directly to fix your Redux state!
       return res.status(200).json(program);
     } else {
       return res.status(404).json({ message: "Program not found" });
@@ -59,6 +60,8 @@ export const getFullProgramDetails = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(programId)) {
       return res.status(400).json({ success: false, message: "Invalid Program ID format" });
     }
+
+    // console.log("📦 CURRENTLY REGISTERED MODELS:", mongoose.modelNames());
 
     // 🛡️ THE DEEP POPULATE MAGIC 🛡️
     const programDetails = await Program.findById(programId)

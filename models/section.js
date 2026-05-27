@@ -6,9 +6,9 @@ const sectionSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "SubSection",
+      ref: "SubSection", // 👈 FIXED: Matches the model name precisely
     },
   ],
 });
 
-export default mongoose.model("Section", sectionSchema);
+export default mongoose.model("Section", sectionSchema); 

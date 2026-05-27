@@ -5,6 +5,11 @@ import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
 import { v2 as cloudinary } from 'cloudinary';
 
+import './models/User.js';
+import './models/Program.js';
+import './models/section.js';
+import './models/subSection.js';
+
 import authRoutes from './routes/authRoutes.js';
 import programRoutes from './routes/programRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
