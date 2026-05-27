@@ -4,11 +4,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
 import { v2 as cloudinary } from 'cloudinary';
+import aiRoutes from './routes/aiRoutes.js';
 
 import './models/User.js';
 import './models/Program.js';
 import './models/section.js';
 import './models/subSection.js';
+
 
 import authRoutes from './routes/authRoutes.js';
 import programRoutes from './routes/programRoutes.js';
@@ -51,6 +53,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/auth', authRoutes);
 app.use('/api/programs', programRoutes);
 app.use('/api/payment', paymentRoutes); 
+app.use('/api/ai', aiRoutes);
 
 const PORT = process.env.PORT || 5000;
 
