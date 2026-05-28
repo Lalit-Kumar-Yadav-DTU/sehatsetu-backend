@@ -29,7 +29,7 @@ const programs = [
     enrolled: 312,
     duration: "6 weeks",
     price: 1999,
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
+    image: "https://serenecommunities.in/wp-content/uploads/2021/09/cpc.jpg"
   },
   {
     title: "Breathing Exercises for Respiratory Health",
